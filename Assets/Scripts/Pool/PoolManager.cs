@@ -12,13 +12,13 @@ public class PoolManager : MonoBehaviour
 	
 	private bool dirty = false;
 	
-	void Awake () 
+	private void Awake () 
 	{
 		prefabLookup = new Dictionary<GameObject, ObjectPool<GameObject>>();
 		instanceLookup = new Dictionary<GameObject, ObjectPool<GameObject>>();
 	}
 
-	void Update()
+	private void Update()
 	{
 		if(logStatus && dirty)
 		{

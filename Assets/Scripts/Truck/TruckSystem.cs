@@ -1,22 +1,71 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
+
+
 public class TruckSystem : MonoBehaviour
 {
-    [SerializeField]
-    private Transform[] _truckSpawnPoints;
+    [Header("Truck Spawning Settings")]
+    private float _delay = 10f;
 
-    [SerializeField]
-    private Truck _truckPrefab;
+    private List<TruckDoor> _doors = new List<TruckDoor>();
 
     [Inject]
     private PoolManager _poolManager;
 
+    [SerializeField]
+    private GameObject _importPrefab;
+
+    [SerializeField]
+    private GameObject _exportPrefab;
+
     private void Awake()
     {
-        if (_truckSpawnPoints.Length == 0)
-            throw new System.Exception("Spawn points array is empty.");
+        _poolManager.WarmPool(_importPrefab, 2);
 
-        _poolManager.WarmPool(_truckPrefab.gameObject, 4);
+        FindFreeDoor();
+    }
+
+    public void AddDoor(TruckDoor door)
+    {
+        _doors.Add(door);
+    }
+
+    float _timer = 0;
+
+    private void Update()
+    {
+        _timer += Time.deltaTime;
+
+        if(_timer >= _delay)
+        {
+            _timer = 0;
+
+            FindFreeDoor();
+        }
+    }
+
+    private void FindFreeDoor()
+    {
+        for (int i = 0; i < _doors.Count; i++)
+        {
+            if (_doors[i].HasTruck) continue;
+
+            CallTruck(_doors[i]);
+            break;
+        }
+    }
+
+    private void CallTruck(TruckDoor door)
+    {
+        if (door.HasTruck) return;
+
+        var truckPrefab = door.DoorType == TruckType.Importation ? _importPrefab : _exportPrefab;
+        var truck = _poolManager.
+            SpawnObject(truckPrefab, door.TruckSpawnPoint.position, Quaternion.LookRotation(-door.transform.forward), null).
+            GetComponent<Truck>();
+
+        truck.SetTargetDoor(door);
     }
 }

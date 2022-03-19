@@ -1,42 +1,45 @@
 using UnityEngine;
 
+public enum TruckType
+{
+    Importation,
+    Exportation
+}
+
 public class Truck : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float _moveSpeed = 6f;
-
-
+    [SerializeField] private float _stopDistance = 1f;
     private TruckDoor _targetDoor;
-    private Vector3 _startPoint;
 
-    private bool _unloaded = false;
-
-    private bool _reach = false;
-
-    private void Start()
-    {
-        _startPoint = transform.position;
-    }
+    private bool _reachDoor = false;
 
     public void SetTargetDoor(TruckDoor target)
     {
         _targetDoor = target;
+        target.SetTruck(this);
     }
 
 
     private void Update()
     {
-        if(_targetDoor != null && _reach == false)
+        if(_targetDoor != null && _reachDoor == false)
         {
-            float distance = Vector3.Distance(transform.position, _targetDoor.transform.position);
-
-            if(distance <= .5f)
-            {
-                _reach = true;
-                return;
-            }
-
-            transform.position = Vector3.MoveTowards(transform.position, _targetDoor.transform.position, _moveSpeed * Time.deltaTime);
+            MoveToDoor();
         }
+    }
+
+    private void MoveToDoor()
+    {
+        float distance = Vector3.Distance(transform.position, _targetDoor.transform.position);
+
+        if (distance <= _stopDistance)
+        {
+            _reachDoor = true;
+            return;
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, _targetDoor.transform.position, _moveSpeed * Time.deltaTime);
     }
 }
