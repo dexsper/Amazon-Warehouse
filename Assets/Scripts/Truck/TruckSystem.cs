@@ -20,7 +20,7 @@ public class TruckSystem : MonoBehaviour
     [SerializeField]
     private GameObject _exportPrefab;
 
-    private void Awake()
+    private void Start()
     {
         _poolManager.WarmPool(_importPrefab, 2);
 
