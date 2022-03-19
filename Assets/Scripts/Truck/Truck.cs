@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public enum TruckType
 {
@@ -11,16 +13,27 @@ public class Truck : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float _moveSpeed = 6f;
     [SerializeField] private float _stopDistance = 1f;
-    private TruckDoor _targetDoor;
 
+    [Range(1, 20)]
+    [SerializeField] private int _maxPackages = 10;
+
+    [Inject]
+    private PoolManager _poolManager;
+
+    private Stack<Package> _packages = new Stack<Package>();
+
+    private TruckDoor _targetDoor;
     private bool _reachDoor = false;
 
-    public void SetTargetDoor(TruckDoor target)
-    {
-        _targetDoor = target;
-        target.SetTruck(this);
-    }
+    private TruckType _type;
 
+    public bool Equipped => _packages.Count == _maxPackages;
+    public bool HasPackages => _packages.Count > 0;
+
+    private void Start()
+    {
+        
+    }
 
     private void Update()
     {
@@ -28,6 +41,25 @@ public class Truck : MonoBehaviour
         {
             MoveToDoor();
         }
+    }
+    public void SetTargetDoor(TruckDoor target)
+    {
+        _targetDoor = target;
+        target.SetTruck(this);
+    }
+
+    public Package GetPackage()
+    {
+        if (HasPackages == false) return null;
+
+        return _packages.Pop();
+    }
+
+    public void AddPackage(Package package)
+    {
+        if (_packages.Count >= _maxPackages) return;
+
+        _packages.Push(package);
     }
 
     private void MoveToDoor()
