@@ -24,7 +24,7 @@ public class TruckSystem : MonoBehaviour
     {
         _poolManager.WarmPool(_importPrefab, 2);
 
-        FindFreeDoor();
+        FindFreeDoor(TruckType.Importation);
     }
 
     public void AddDoor(TruckDoor door)
@@ -42,15 +42,16 @@ public class TruckSystem : MonoBehaviour
         {
             _timer = 0;
 
-            FindFreeDoor();
+            FindFreeDoor(TruckType.Importation);
         }
     }
 
-    private void FindFreeDoor()
+    private void FindFreeDoor(TruckType truckType)
     {
         for (int i = 0; i < _doors.Count; i++)
         {
             if (_doors[i].HasTruck) continue;
+            if(_doors[i].DoorType != truckType) continue;
 
             CallTruck(_doors[i]);
             break;
