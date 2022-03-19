@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IInput 
+﻿
+namespace Assets.Scripts.Input
 {
-    
+    public interface IInput
+    {
+        public float Horizontal { get; }
+        public float Vertical { get; }
+    }
 }
