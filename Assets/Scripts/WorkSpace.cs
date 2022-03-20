@@ -13,9 +13,6 @@ public class WorkSpace : BaseInteraction
     [SerializeField] private PackageContainer _inputContainer;
     [SerializeField] private PackageContainer _outputContainer;
 
-    [Inject]
-    private Player _player;
-
     public InteractionType InteractType => InteractionType.Table;
 
     private bool _isWork = false;
@@ -26,7 +23,7 @@ public class WorkSpace : BaseInteraction
 
         if (_isWork) return false;
 
-        if (_outputContainer.Equipped)
+        if (_outputContainer.HasPackages)
         {
             if (_player.Interaction.Container.PackagesCount > 0 && _player.Interaction.Container.HasPackage(PackageState.Calculated) == false) return false;
         }
@@ -44,7 +41,7 @@ public class WorkSpace : BaseInteraction
     {
         if (!CanInteract()) return;
 
-        if (_outputContainer.Equipped)
+        if (_outputContainer.HasPackages)
         {
             var package = _outputContainer.GetPackage();
 
@@ -64,7 +61,7 @@ public class WorkSpace : BaseInteraction
         secondsPerPackage = _workTime / _inputContainer.Cells.Count;
     }
 
-    float timer = 0f;
+    float workTimer = 0f;
 
     float secondsPerPackage;
 
@@ -84,11 +81,11 @@ public class WorkSpace : BaseInteraction
                 _isWork = false;
             }
 
-            timer += Time.deltaTime;
+            workTimer += Time.deltaTime;
 
-            if(timer >= secondsPerPackage)
+            if(workTimer >= secondsPerPackage)
             {
-                timer = 0;
+                workTimer = 0;
 
                 var package = _inputContainer.GetPackage();
                 package.SetState(PackageState.Calculated);
