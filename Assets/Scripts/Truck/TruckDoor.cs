@@ -3,7 +3,7 @@ using Zenject;
 
 public class TruckDoor : MonoBehaviour
 {
-    private Truck _truck;
+    private TruckBase _truck;
 
     [Inject]
     private TruckSystem _truckSystem;
@@ -23,7 +23,7 @@ public class TruckDoor : MonoBehaviour
         get { return _truck != null; }
     }
 
-    public void SetTruck(Truck truck)
+    public void SetTruck(TruckBase truck)
     {
         _truck = truck;
     }

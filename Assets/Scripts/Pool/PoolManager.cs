@@ -56,7 +56,6 @@ public class PoolManager : MonoBehaviour
 		var clone = pool.GetItem();
 		clone.transform.SetPositionAndRotation(position, rotation);
 		clone.transform.parent = parent;
-		clone.SetActive(true);
 
 		instanceLookup.Add(clone, pool);
 		dirty = true;

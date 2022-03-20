@@ -15,14 +15,19 @@ public class TruckSystem : MonoBehaviour
     private PoolManager _poolManager;
 
     [SerializeField]
-    private GameObject _importPrefab;
+    private GameObject _importTruckPrefab;
 
     [SerializeField]
-    private GameObject _exportPrefab;
+    private GameObject _exportTruckPrefab;
+
+    [SerializeField]
+    private GameObject _packagePrefab;
 
     private void Start()
     {
-        _poolManager.WarmPool(_importPrefab, 2);
+        _poolManager.WarmPool(_importTruckPrefab, 2);
+        _poolManager.WarmPool(_exportTruckPrefab, 2);
+        _poolManager.WarmPool(_packagePrefab, 40);
 
         FindFreeDoor(TruckType.Importation);
     }
@@ -62,10 +67,20 @@ public class TruckSystem : MonoBehaviour
     {
         if (door.HasTruck) return;
 
-        var truckPrefab = door.DoorType == TruckType.Importation ? _importPrefab : _exportPrefab;
+        var truckPrefab = door.DoorType == TruckType.Importation ? _importTruckPrefab : _exportTruckPrefab;
         var truck = _poolManager.
             SpawnObject(truckPrefab, door.TruckSpawnPoint.position, Quaternion.LookRotation(-door.transform.forward), null).
-            GetComponent<Truck>();
+            GetComponent<TruckBase>();
+
+        truck.gameObject.SetActive(true);
+
+        if(truck.Type == TruckType.Importation)
+        {
+            while(!truck.Equipped)
+            {
+                truck.AddPackage(_poolManager.SpawnObject(_packagePrefab).GetComponent<Package>());
+            }
+        }
 
         truck.SetTargetDoor(door);
     }

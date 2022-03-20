@@ -8,61 +8,48 @@ public enum TruckType
     Exportation
 }
 
-public class Truck : MonoBehaviour
+public abstract class TruckBase : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float _moveSpeed = 6f;
-    [SerializeField] private float _stopDistance = 1f;
+    [SerializeField] protected float _moveSpeed = 6f;
+    [SerializeField] protected float _stopDistance = 1f;
 
-    [Range(1, 20)]
-    [SerializeField] private int _maxPackages = 10;
+    [Header("Truck Settings")]
+    [SerializeField] private TruckType _type;
+    [Range(1, 30)]
+    [SerializeField] protected int _maxPackages = 10;
 
-    [Inject]
-    private PoolManager _poolManager;
+    protected Stack<Package> _packages = new Stack<Package>();
+    protected TruckDoor _targetDoor;
+    protected bool _reachDoor = false;
+    
+    protected PackageContainer _container;
 
-    private Stack<Package> _packages = new Stack<Package>();
-
-    private TruckDoor _targetDoor;
-    private bool _reachDoor = false;
-
-    private TruckType _type;
-
+    public TruckType Type { get { return _type; } }
     public bool Equipped => _packages.Count == _maxPackages;
     public bool HasPackages => _packages.Count > 0;
 
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        if(_targetDoor != null && _reachDoor == false)
-        {
-            MoveToDoor();
-        }
-    }
-    public void SetTargetDoor(TruckDoor target)
+    public virtual void SetTargetDoor(TruckDoor target)
     {
         _targetDoor = target;
         target.SetTruck(this);
     }
 
-    public Package GetPackage()
+    public virtual Package GetPackage()
     {
         if (HasPackages == false) return null;
 
         return _packages.Pop();
     }
 
-    public void AddPackage(Package package)
+    public virtual void AddPackage(Package package)
     {
         if (_packages.Count >= _maxPackages) return;
 
         _packages.Push(package);
     }
 
-    private void MoveToDoor()
+    protected virtual void MoveToDoor()
     {
         float distance = Vector3.Distance(transform.position, _targetDoor.transform.position);
 

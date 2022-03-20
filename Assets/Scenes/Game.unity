@@ -9797,8 +9797,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab4ba1df703d314486145cac8efbe6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _importPrefab: {fileID: 980947770208525679, guid: 7374b7fbd0be43045a9f0d67ea7d751c, type: 3}
-  _exportPrefab: {fileID: 1711745387401177927, guid: c182955e9c77a7a4e8be3f9c10a8b5d8, type: 3}
+  _importTruckPrefab: {fileID: 980947770208525679, guid: 7374b7fbd0be43045a9f0d67ea7d751c, type: 3}
+  _exportTruckPrefab: {fileID: 1711745387401177927, guid: c182955e9c77a7a4e8be3f9c10a8b5d8, type: 3}
+  _packagePrefab: {fileID: 6992945440994577567, guid: 728764bfe3ba8344c8f1cb73b7046afc, type: 3}
 --- !u!1001 &1397630882
 PrefabInstance:
   m_ObjectHideFlags: 0
