@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 [RequireComponent(typeof(PackageContainer))]
-public class ConveyorInput : BaseInteraction
+public class WorkspaceInput : BaseInteraction
 {
     private PackageContainer _container;
 
-    public InteractionType InteractType => InteractionType.Conveyor;
+    public InteractionType InteractType => InteractionType.Table;
 
     public PackageContainer Container => _container;
 
@@ -22,10 +21,10 @@ public class ConveyorInput : BaseInteraction
         if (_player.Interaction.HasInteraction && _player.Interaction.CurrentInteraction != (this as IInteractable)) return false;
 
         if (_container.Equipped) return false;
-        if(_player.Interaction.Container.HasPackages == false) return false;
+        if (_player.Interaction.Container.HasPackages == false) return false;
 
-        if (_player.Interaction.Container.PackagesCount > 0 && 
-            _player.Interaction.Container.HasPackage(PackageState.Calculated) == false) return false;
+        if (_player.Interaction.Container.PackagesCount > 0 &&
+            _player.Interaction.Container.HasPackage(PackageState.New) == false) return false;
 
         return true;
     }

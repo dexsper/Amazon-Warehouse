@@ -9,7 +9,7 @@ public class PackageContainer : MonoBehaviour
     [SerializeField]
     private List<Transform> _cells;
 
-    [SerializeField] private float _packageMoveSpeed = 1f;
+    [SerializeField] private float _packageMoveDuration = 1f;
 
     public List<Transform> Cells
     {
@@ -43,7 +43,7 @@ public class PackageContainer : MonoBehaviour
 
         var cell = Cells[_packages.Count - 1];
 
-        StartCoroutine(package.MoveTo(cell.transform, cell, _packageMoveSpeed));
+        StartCoroutine(package.MoveTo(cell.transform, cell, _packageMoveDuration));
 
         cell.gameObject.SetActive(true);
     }

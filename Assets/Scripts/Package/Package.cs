@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum PackageState
@@ -8,12 +10,21 @@ public enum PackageState
     Sorted
 }
 
-public class Package : MonoBehaviour
+[System.Serializable]
+public class PackageVisualObject
+{
+    public PackageState State;
+    public List<GameObject> Objects;
+}
+
+public class Package : MoveObject
 {
     [SerializeField]
     private PackageState _state;
 
-    private bool _isMove = false;
+    [Header("Visual Settings")]
+    [SerializeField] private List<PackageVisualObject> _visualObjectsStates;
+
     public PackageState State
     {
         get { return _state; }
@@ -21,31 +32,22 @@ public class Package : MonoBehaviour
 
     public void SetState(PackageState state)
     {
-        _state = state; 
+        _state = state;
+
+        UpdateVisual();
     }
 
-
-    public IEnumerator MoveTo(Transform target, Transform parent, float duration)
+    private void UpdateVisual()
     {
-        _isMove = true;
-
-        float elapsedTime = 0;
-        float ratio = elapsedTime / duration;
-
-        Vector3 startPos = transform.position;
-
-        while (ratio < 1f)
+        for (int i = 0; i < _visualObjectsStates.Count; i++)
         {
-            elapsedTime += Time.deltaTime;
-            ratio = elapsedTime / duration;
-            transform.position = Vector3.Lerp(startPos, target.position, ratio);
-            yield return null;
+            if(_state == _visualObjectsStates[i].State)
+            {
+                for (int j = 0; j < _visualObjectsStates[i].Objects.Count; j++)
+                {
+                    _visualObjectsStates[i].Objects[j].SetActive(true);
+                } 
+            }
         }
-
-        transform.SetParent(parent);
-        transform.localPosition = Vector3.zero;
-        transform.localEulerAngles = Vector3.zero;
-
-        _isMove = false;
     }
 }

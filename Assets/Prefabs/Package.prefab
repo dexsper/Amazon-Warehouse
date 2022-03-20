@@ -96,6 +96,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
+  _visualObjectsStates:
+  - State: 1
+    Objects:
+    - {fileID: 8149531398505487807}
 --- !u!1 &8149531398505487807
 GameObject:
   m_ObjectHideFlags: 0
