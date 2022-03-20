@@ -28,9 +28,12 @@ public class TruckSystem : MonoBehaviour
 
     private void Start()
     {
-        _poolManager.WarmPool(_importTruckPrefab, 2);
-        _poolManager.WarmPool(_exportTruckPrefab, 2);
-        _poolManager.WarmPool(_packagePrefab, 40);
+        if (_importTruckPrefab != null)
+            _poolManager.WarmPool(_importTruckPrefab, 2);
+        if (_exportTruckPrefab != null)
+            _poolManager.WarmPool(_exportTruckPrefab, 2);
+        if (_packagePrefab != null)
+            _poolManager.WarmPool(_packagePrefab, 40);
 
         FindFreeDoor(TruckType.Importation);
     }
@@ -46,7 +49,7 @@ public class TruckSystem : MonoBehaviour
     {
         _timer += Time.deltaTime;
 
-        if(_timer >= _delay)
+        if (_timer >= _delay)
         {
             _timer = 0;
 
@@ -55,7 +58,7 @@ public class TruckSystem : MonoBehaviour
 
         for (int i = 0; i < _activeTrucks.Count; i++)
         {
-            if(_activeTrucks[i].Release)
+            if (_activeTrucks[i].Release)
             {
                 var truck = _activeTrucks[i];
                 _activeTrucks.Remove(truck);
@@ -69,7 +72,7 @@ public class TruckSystem : MonoBehaviour
         for (int i = 0; i < _doors.Count; i++)
         {
             if (_doors[i].HasTruck) continue;
-            if(_doors[i].DoorType != truckType) continue;
+            if (_doors[i].DoorType != truckType) continue;
 
             CallTruck(_doors[i]);
             break;
@@ -87,9 +90,9 @@ public class TruckSystem : MonoBehaviour
 
         truck.gameObject.SetActive(true);
 
-        if(truck.Type == TruckType.Importation)
+        if (truck.Type == TruckType.Importation)
         {
-            while(!truck.Equipped)
+            while (!truck.Equipped)
             {
                 truck.AddPackage(_poolManager.SpawnObject(_packagePrefab).GetComponent<Package>());
             }

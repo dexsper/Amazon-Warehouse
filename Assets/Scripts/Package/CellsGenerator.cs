@@ -4,7 +4,7 @@ using UnityEngine;
 public class CellsGenerator : MonoBehaviour
 {
     [Header("Generation Settings")]
-    [SerializeField] private Vector3 _offset;
+    [SerializeField] private Vector2 _offset;
     [SerializeField] private int _horizontalCount = 0;
     [SerializeField] private int _verticalCount = 0;
     [SerializeField] private Transform _cellsParent;
@@ -14,30 +14,20 @@ public class CellsGenerator : MonoBehaviour
     {
         _container = GetComponent<PackageContainer>();
 
-        for (int i = 0; i < _horizontalCount; i++)
-        {
-            GameObject go = new GameObject($"Cell {i}");
-            go.transform.parent = _cellsParent;
-
-            var offset = _offset * i;
-            Vector3 pos = Vector3.zero + offset;
-
-            go.transform.localPosition = new Vector3(pos.x, 0f, 0f);
-
-            _container.AddCell(go.transform);
-        }
-
         for (int i = 0; i < _verticalCount; i++)
         {
-            GameObject go = new GameObject($"Cell {i}");
-            go.transform.parent = _cellsParent;
+            for (int j = 0; j < _horizontalCount; j++)
+            {
+                GameObject go = new GameObject($"Cell {i}.{j}");
+                go.transform.parent = _cellsParent;
 
-            var offset = _offset * i;
-            Vector3 pos = Vector3.zero + offset;
+                Vector3 offset = new Vector3(0f, i * _offset.y, -j * _offset.x);
 
-            go.transform.localPosition = new Vector3(0f, pos.y, 0f);
+                go.transform.localPosition = offset;
+                go.transform.localEulerAngles = Vector3.zero;
 
-            _container.AddCell(go.transform);
+                _container.AddCell(go.transform);
+            }
         }
     }
 }
