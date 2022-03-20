@@ -8,7 +8,8 @@ public enum TruckType
     Exportation
 }
 
-public abstract class TruckBase : PackageContainer
+[RequireComponent(typeof(PackageContainer))]
+public abstract class TruckBase : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] protected float _moveSpeed = 6f;
@@ -17,16 +18,23 @@ public abstract class TruckBase : PackageContainer
     [Header("Truck Settings")]
     [SerializeField] private TruckType _type;
 
+    protected PackageContainer _container;
    
     protected TruckDoor _targetDoor;
     protected bool _reachDoor = false;
     protected Vector3 _startPos;
     
     public bool Release { get; protected set; }
-
+    public PackageContainer Container => _container;
     public bool ReachDoor => _reachDoor;
     public TruckType Type => _type;
 
+
+
+    private void Awake()
+    {
+        _container = GetComponent<PackageContainer>();
+    }
 
     private void Start()
     {
@@ -37,7 +45,9 @@ public abstract class TruckBase : PackageContainer
     public virtual void SetTargetDoor(TruckDoor target)
     {
         _targetDoor = target;
-        target.SetTruck(this);
+
+        if(target != null)
+            target.SetTruck(this);
     }
 
 

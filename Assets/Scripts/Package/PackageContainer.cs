@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class PackageContainer : MonoBehaviour
+public class PackageContainer : MonoBehaviour
 {
     [Header("Container Settings")]
     [SerializeField]
@@ -24,7 +24,7 @@ public abstract class PackageContainer : MonoBehaviour
         _cells.Add(cell);
     }
 
-    public virtual Package GetPackage()
+    public Package GetPackage()
     {
         if (HasPackages == false) return null;
 
@@ -35,18 +35,25 @@ public abstract class PackageContainer : MonoBehaviour
         return package;
     }
 
-    public virtual void AddPackage(Package package)
+    public void AddPackage(Package package)
     {
         if (_packages.Count >= _cells.Count) return;
 
         _packages.Add(package);
 
-        var cell = Cells[_packages.Count];
+        var cell = Cells[_packages.Count - 1];
 
         StartCoroutine(package.MoveTo(cell.transform, cell, _packageMoveSpeed));
 
         cell.gameObject.SetActive(true);
     }
 
-    protected List<Package> _packages = new List<Package>();
+    public bool HasPackage(PackageState state)
+    {
+        return (_packages.Count > 0 && _packages.ElementAt(0).State == state);
+    }
+
+    public int PackagesCount => _packages.Count;
+
+    private List<Package> _packages = new List<Package>();
 }

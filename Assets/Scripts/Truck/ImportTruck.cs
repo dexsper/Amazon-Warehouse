@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class ImportTruck : TruckBase
-{ 
+{
     private void Update()
     {
         if (_targetDoor != null && _reachDoor == false)
@@ -17,13 +17,15 @@ public class ImportTruck : TruckBase
 
             MoveTo(_targetDoor.transform.position);
         }
-        else if (_reachDoor && HasPackages == false && Release == false)
+        else if (_reachDoor && _container.HasPackages == false && Release == false)
         {
             float distance = Vector3.Distance(transform.position, _startPos);
 
             if (distance <= _stopDistance)
             {
                 Release = true;
+                _targetDoor.SetTruck(null);
+
                 return;
             }
 

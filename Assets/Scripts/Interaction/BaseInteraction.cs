@@ -42,12 +42,19 @@ public abstract class BaseInteraction : MonoBehaviour, IInteractable
     {
         if (_player.gameObject == other.gameObject)
         {
-            timer += Time.deltaTime;
-
-            if (timer >= _delay)
+            if (CanInteract() == false)
             {
-                Interact();
-                timer = 0f;
+                OnTriggerExit(other);
+            }
+            else
+            {
+                timer += Time.deltaTime;
+
+                if (timer >= _delay)
+                {
+                    Interact();
+                    timer = 0f;
+                }
             }
         }
     }

@@ -16,6 +16,6 @@ public class PlayerAnimation : MonoBehaviour
     private void Update()
     {
         _animator.SetBool("IsMove", _player.PlayerMovement.IsMove);
-        _animator.SetBool("HasPackages", _player.Interaction.HasPackages);
+        _animator.SetBool("HasPackages", _player.Interaction.Container.HasPackages);
     }
 }

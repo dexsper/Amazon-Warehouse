@@ -3,45 +3,97 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class WorkSpace : PackageContainer, IInteractable
+
+public class WorkSpace : BaseInteraction
 {
     [Header("Work Settings")]
     [SerializeField] private float _workTime = 5f;
 
+    [Header("Containers")]
+    [SerializeField] private PackageContainer _inputContainer;
+    [SerializeField] private PackageContainer _outputContainer;
+
     [Inject]
     private Player _player;
-
-    [SerializeField]
-    private List<Transform> _outputCells;
 
     public InteractionType InteractType => InteractionType.Table;
 
     private bool _isWork = false;
 
-    public bool CanInteract()
+    public override bool CanInteract()
     {
         if (_player.Interaction.HasInteraction && _player.Interaction.CurrentInteraction != (this as IInteractable)) return false;
-        if (_isWork || Equipped) return false;
-        if (_player.Interaction.HasPackage(PackageState.New) == false) return false;
+
+        if (_isWork) return false;
+
+        if (_outputContainer.Equipped)
+        {
+            if (_player.Interaction.Container.PackagesCount > 0 && _player.Interaction.Container.HasPackage(PackageState.Calculated) == false) return false;
+        }
+        else
+        {
+            if ( _inputContainer.Equipped) return false;
+            if(_player.Interaction.Container.HasPackages == false) return false;
+            if (_player.Interaction.Container.PackagesCount > 0 && _player.Interaction.Container.HasPackage(PackageState.New) == false) return false;
+        }
 
         return true;
     }
 
-    public void Interact()
+    public override void Interact()
     {
         if (!CanInteract()) return;
-        if (_player.Interaction.Equipped == false) return;
 
-        var package = _player.Interaction.GetPackage();
+        if (_outputContainer.Equipped)
+        {
+            var package = _outputContainer.GetPackage();
 
-        AddPackage(package);
+            _player.Interaction.Container.AddPackage(package);
+        }
+        else
+        {
+            var package = _player.Interaction.Container.GetPackage();
+
+            _inputContainer.AddPackage(package);
+        }
     }
 
-    private void Update()
+
+    private void Awake()
     {
-        if(Equipped && _isWork == false)
+        secondsPerPackage = _workTime / _inputContainer.Cells.Count;
+    }
+
+    float timer = 0f;
+
+    float secondsPerPackage;
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (_inputContainer.Equipped && _isWork == false)
         {
             _isWork = true;
+        }
+
+        if(_isWork)
+        {
+            if(_inputContainer.PackagesCount == 0)
+            {
+                _isWork = false;
+            }
+
+            timer += Time.deltaTime;
+
+            if(timer >= secondsPerPackage)
+            {
+                timer = 0;
+
+                var package = _inputContainer.GetPackage();
+                package.SetState(PackageState.Calculated);
+                _outputContainer.AddPackage(package);
+            }
         }
     }
 }

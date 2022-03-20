@@ -44,16 +44,17 @@ public class TruckDoor : BaseInteraction
     public override bool CanInteract()
     {
         if (_player.Interaction.HasInteraction && _player.Interaction.CurrentInteraction != (this as IInteractable)) return false;
-        if (HasTruck == false || _truck.ReachDoor == false) return false;
+        if (HasTruck == false || _truck.ReachDoor == false || _truck.Container.HasPackages == false) return false;
 
         if (DoorType == TruckType.Importation)
         {
-            if (_player.Interaction.HasPackage(PackageState.New) == false) return false;
+            if (_player.Interaction.Container.Equipped) return false;
+            if (_player.Interaction.Container.PackagesCount > 0  && _player.Interaction.Container.HasPackage(PackageState.New) == false) return false;
         }
         else if(DoorType == TruckType.Exportation)
         {
-            if(_player.Interaction.HasPackages == false) return false;
-            if (_player.Interaction.HasPackage(PackageState.Sorted) == false) return false;
+            if(_player.Interaction.Container.HasPackages == false) return false;
+            if (_player.Interaction.Container.PackagesCount > 0 && _player.Interaction.Container.HasPackage(PackageState.Sorted) == false) return false;
         }
 
         return true;
@@ -62,19 +63,19 @@ public class TruckDoor : BaseInteraction
     public override void Interact()
     {
         if (!CanInteract()) return;
-        if (_player.Interaction.Equipped) return;
+        if (_player.Interaction.Container.Equipped) return;
 
         if (DoorType == TruckType.Importation)
         {
-            var package = _truck.GetPackage();
+            var package = _truck.Container.GetPackage();
 
-            _player.Interaction.AddPackage(package);
+            _player.Interaction.Container.AddPackage(package);
         }
         else
         {
-            var package = _player.Interaction.GetPackage();
+            var package = _player.Interaction.Container.GetPackage();
 
-            _truck.AddPackage(package);
+            _truck.Container.AddPackage(package);
         }
     }
 }

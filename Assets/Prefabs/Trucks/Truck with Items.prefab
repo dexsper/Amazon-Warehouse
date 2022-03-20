@@ -524,8 +524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149e23a7371b60042893ad99568f164b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cells: []
-  _packageMoveSpeed: 0
   _moveSpeed: 6
   _stopDistance: 6
   _type: 0

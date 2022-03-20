@@ -2,9 +2,21 @@
 using System.Linq;
 using UnityEngine;
 
-
-public class PlayerInteraction : PackageContainer
+[RequireComponent(typeof(PackageContainer))]
+public class PlayerInteraction : MonoBehaviour
 {
+    private PackageContainer _container;
+
+    public PackageContainer Container
+    {
+        get { return _container; }
+    }
+
+    private void Awake()
+    {
+        _container = GetComponent<PackageContainer>();
+    }
+
     private IInteractable _currentInteraction;
 
     public IInteractable CurrentInteraction
@@ -20,11 +32,6 @@ public class PlayerInteraction : PackageContainer
     public bool HasInteraction
     {
         get { return _currentInteraction != null; }
-    }
-
-    public bool HasPackage(PackageState state)
-    {
-        return (_packages.Count > 0 && _packages.ElementAt(0).State == state) || _packages.Count == 0;
     }
 }
 

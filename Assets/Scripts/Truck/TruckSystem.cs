@@ -61,6 +61,8 @@ public class TruckSystem : MonoBehaviour
             if (_activeTrucks[i].Release)
             {
                 var truck = _activeTrucks[i];
+                truck.SetTargetDoor(null);
+
                 _activeTrucks.Remove(truck);
                 _poolManager.ReleaseObject(truck.gameObject);
             }
@@ -92,9 +94,9 @@ public class TruckSystem : MonoBehaviour
 
         if (truck.Type == TruckType.Importation)
         {
-            while (!truck.Equipped)
+            while (!truck.Container.Equipped)
             {
-                truck.AddPackage(_poolManager.SpawnObject(_packagePrefab).GetComponent<Package>());
+                truck.Container.AddPackage(_poolManager.SpawnObject(_packagePrefab).GetComponent<Package>());
             }
         }
 
