@@ -2,17 +2,6 @@
 
 public class ExportTruck : TruckBase
 {
-    public override void AddPackage(Package package)
-    {
-        var cell = Cells[_packages.Count];
-
-        base.AddPackage(package);
-
-        StartCoroutine(package.MoveTo(cell.transform, cell, 1f));
-
-        cell.gameObject.SetActive(true);
-    }
-
     private void Update()
     {
         if (_targetDoor != null && _reachDoor == false)

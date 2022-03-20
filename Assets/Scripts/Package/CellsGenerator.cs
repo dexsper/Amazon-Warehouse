@@ -24,7 +24,7 @@ public class CellsGenerator : MonoBehaviour
                 Vector3 offset = new Vector3(0f, i * _offset.y, -j * _offset.x);
 
                 go.transform.localPosition = offset;
-                go.transform.localEulerAngles = Vector3.zero;
+                go.transform.localEulerAngles = Vector3.zero; 
 
                 _container.AddCell(go.transform);
             }

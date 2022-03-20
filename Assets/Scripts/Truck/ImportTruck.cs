@@ -3,17 +3,6 @@ using UnityEngine;
 
 public class ImportTruck : TruckBase
 { 
-    public override void AddPackage(Package package)
-    {
-        var cell = Cells[_packages.Count];
-
-        base.AddPackage(package);
-
-        StartCoroutine(package.MoveTo(cell.transform, cell, 0f));
-
-        cell.gameObject.SetActive(true);
-    }
-
     private void Update()
     {
         if (_targetDoor != null && _reachDoor == false)

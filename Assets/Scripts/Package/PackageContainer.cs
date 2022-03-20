@@ -9,6 +9,8 @@ public abstract class PackageContainer : MonoBehaviour
     [SerializeField]
     private List<Transform> _cells;
 
+    [SerializeField] private float _packageMoveSpeed = 1f;
+
     public List<Transform> Cells
     {
         get { return _cells; }
@@ -38,6 +40,12 @@ public abstract class PackageContainer : MonoBehaviour
         if (_packages.Count >= _cells.Count) return;
 
         _packages.Add(package);
+
+        var cell = Cells[_packages.Count];
+
+        StartCoroutine(package.MoveTo(cell.transform, cell, _packageMoveSpeed));
+
+        cell.gameObject.SetActive(true);
     }
 
     protected List<Package> _packages = new List<Package>();

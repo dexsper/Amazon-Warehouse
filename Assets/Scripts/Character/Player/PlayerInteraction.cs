@@ -12,17 +12,6 @@ public class PlayerInteraction : PackageContainer
         get { return _currentInteraction; }
     }
 
-    public override void AddPackage(Package package)
-    {
-        var cell = Cells[_packages.Count];
-
-        base.AddPackage(package);
-
-        StartCoroutine(package.MoveTo(cell.transform, cell, 1f));
-
-        cell.gameObject.SetActive(true);
-    }
-
     public void SetInteract(IInteractable interactable)
     {
         _currentInteraction = interactable;

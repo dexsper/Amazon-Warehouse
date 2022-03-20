@@ -1223,8 +1223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674caa04390bc784ba9690921d89645c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: {x: 0, y: 0.24, z: 0}
-  _horizontalCount: 0
+  _offset: {x: 0, y: 0.24}
+  _horizontalCount: 1
   _verticalCount: 14
   _cellsParent: {fileID: 310171489}
 --- !u!114 &8615692267655712159
@@ -1240,6 +1240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cells: []
+  _packageMoveSpeed: 1
 --- !u!1 &5702288428269117212
 GameObject:
   m_ObjectHideFlags: 0
