@@ -703,10 +703,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149e23a7371b60042893ad99568f164b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cells:
+  - {fileID: 4388792361050194979}
+  - {fileID: 8724818443510379934}
+  - {fileID: 1723470699668553282}
+  - {fileID: 557340202101131033}
+  - {fileID: 8105413810119334408}
+  - {fileID: 3584094755462821643}
+  - {fileID: 8489150925579126235}
+  - {fileID: 1111413008805520094}
+  - {fileID: 975200123581372197}
+  - {fileID: 5797827096946767122}
+  - {fileID: 8619387947004645807}
+  - {fileID: 4888797706442980833}
+  - {fileID: 952987966375407090}
+  - {fileID: 435459162730777155}
+  - {fileID: 9188486645567158391}
+  - {fileID: 4040302408299806231}
+  - {fileID: 605279210384627937}
+  - {fileID: 1294819650055486930}
+  - {fileID: 1264381885021810030}
+  - {fileID: 5375672138571902964}
+  - {fileID: 3794997804474054219}
+  - {fileID: 6945574377778478803}
+  - {fileID: 6206047057369882139}
+  - {fileID: 7131838077770492336}
+  - {fileID: 2868240354314859719}
+  - {fileID: 8527960168837886487}
+  - {fileID: 134039764725431762}
+  - {fileID: 3609287837722475863}
+  _maxPackages: 28
   _moveSpeed: 6
   _stopDistance: 6
   _type: 0
-  _maxPackages: 28
 --- !u!54 &7685206602355666273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1297,7 +1326,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1555487067613226132}
-  - component: {fileID: 1040900197272915699}
   m_Layer: 0
   m_Name: Package Container
   m_TagString: Untagged
@@ -1347,47 +1375,6 @@ Transform:
   m_Father: {fileID: 492816917599209429}
   m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1040900197272915699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2378206836739809830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b539c81a6c058c7449c8e6d255423e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cells:
-  - {fileID: 4388792361050194979}
-  - {fileID: 8724818443510379934}
-  - {fileID: 1723470699668553282}
-  - {fileID: 557340202101131033}
-  - {fileID: 8105413810119334408}
-  - {fileID: 3584094755462821643}
-  - {fileID: 8489150925579126235}
-  - {fileID: 1111413008805520094}
-  - {fileID: 975200123581372197}
-  - {fileID: 5797827096946767122}
-  - {fileID: 8619387947004645807}
-  - {fileID: 4888797706442980833}
-  - {fileID: 952987966375407090}
-  - {fileID: 435459162730777155}
-  - {fileID: 9188486645567158391}
-  - {fileID: 4040302408299806231}
-  - {fileID: 605279210384627937}
-  - {fileID: 1294819650055486930}
-  - {fileID: 1264381885021810030}
-  - {fileID: 5375672138571902964}
-  - {fileID: 3794997804474054219}
-  - {fileID: 6945574377778478803}
-  - {fileID: 6206047057369882139}
-  - {fileID: 7131838077770492336}
-  - {fileID: 2868240354314859719}
-  - {fileID: 8527960168837886487}
-  - {fileID: 134039764725431762}
-  - {fileID: 3609287837722475863}
 --- !u!1 &2383317308851161889
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ public class Package : MonoBehaviour
     }
 
 
-    public IEnumerator MoveTo(Vector3 pos, Transform parent, float duration)
+    public IEnumerator MoveTo(Transform target, Transform parent, float duration)
     {
         _isMove = true;
 
@@ -38,12 +38,13 @@ public class Package : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             ratio = elapsedTime / duration;
-            transform.position = Vector3.Lerp(startPos, pos, ratio);
+            transform.position = Vector3.Lerp(startPos, target.position, ratio);
             yield return null;
         }
 
         transform.SetParent(parent);
         transform.localPosition = Vector3.zero;
+        transform.localEulerAngles = Vector3.zero;
 
         _isMove = false;
     }

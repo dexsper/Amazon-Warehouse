@@ -23,6 +23,9 @@ public class TruckSystem : MonoBehaviour
     [SerializeField]
     private GameObject _packagePrefab;
 
+
+    private List<TruckBase> _activeTrucks = new List<TruckBase>();
+
     private void Start()
     {
         _poolManager.WarmPool(_importTruckPrefab, 2);
@@ -48,6 +51,16 @@ public class TruckSystem : MonoBehaviour
             _timer = 0;
 
             FindFreeDoor(TruckType.Importation);
+        }
+
+        for (int i = 0; i < _activeTrucks.Count; i++)
+        {
+            if(_activeTrucks[i].Release)
+            {
+                var truck = _activeTrucks[i];
+                _activeTrucks.Remove(truck);
+                _poolManager.ReleaseObject(truck.gameObject);
+            }
         }
     }
 
@@ -83,5 +96,6 @@ public class TruckSystem : MonoBehaviour
         }
 
         truck.SetTargetDoor(door);
+        _activeTrucks.Add(truck);
     }
 }

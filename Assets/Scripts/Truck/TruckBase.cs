@@ -8,7 +8,7 @@ public enum TruckType
     Exportation
 }
 
-public abstract class TruckBase : MonoBehaviour
+public abstract class TruckBase : PackageContainer
 {
     [Header("Movement Settings")]
     [SerializeField] protected float _moveSpeed = 6f;
@@ -16,18 +16,23 @@ public abstract class TruckBase : MonoBehaviour
 
     [Header("Truck Settings")]
     [SerializeField] private TruckType _type;
-    [Range(1, 30)]
-    [SerializeField] protected int _maxPackages = 10;
 
-    protected Stack<Package> _packages = new Stack<Package>();
+   
     protected TruckDoor _targetDoor;
     protected bool _reachDoor = false;
+    protected Vector3 _startPos;
     
-    protected PackageContainer _container;
+    public bool Release { get; protected set; }
 
-    public TruckType Type { get { return _type; } }
-    public bool Equipped => _packages.Count == _maxPackages;
-    public bool HasPackages => _packages.Count > 0;
+    public bool ReachDoor => _reachDoor;
+    public TruckType Type => _type;
+
+
+    private void Start()
+    {
+        _startPos = transform.position;
+        Release = false;
+    }
 
     public virtual void SetTargetDoor(TruckDoor target)
     {
@@ -35,30 +40,9 @@ public abstract class TruckBase : MonoBehaviour
         target.SetTruck(this);
     }
 
-    public virtual Package GetPackage()
+
+    protected virtual void MoveTo(Vector3 targetPos)
     {
-        if (HasPackages == false) return null;
-
-        return _packages.Pop();
-    }
-
-    public virtual void AddPackage(Package package)
-    {
-        if (_packages.Count >= _maxPackages) return;
-
-        _packages.Push(package);
-    }
-
-    protected virtual void MoveToDoor()
-    {
-        float distance = Vector3.Distance(transform.position, _targetDoor.transform.position);
-
-        if (distance <= _stopDistance)
-        {
-            _reachDoor = true;
-            return;
-        }
-
-        transform.position = Vector3.MoveTowards(transform.position, _targetDoor.transform.position, _moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, _moveSpeed * Time.deltaTime);
     }
 }
