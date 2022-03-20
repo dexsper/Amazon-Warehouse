@@ -21,7 +21,7 @@ public class Conveyor : MonoBehaviour
     private void Awake()
     {
         _output = GetComponentInChildren<ConveyorOutput>();
-        _input = GetComponentInChildren<ConveyorInput>(); 
+        _input = GetComponentInChildren<ConveyorInput>();
         _spline = GetComponentInChildren<BezierSpline>();
     }
 
@@ -37,13 +37,13 @@ public class Conveyor : MonoBehaviour
                 timer = 0f;
 
                 var package = _input.Container.GetPackage();
+                package.SetState(PackageState.Sorted);
 
                 var walker = package.gameObject.AddComponent<BezierWalkerWithTime>();
                 walker.travelTime = _moveTime;
                 walker.spline = _spline;
                 walker.onPathCompleted.AddListener(() =>
                 {
-                    package.SetState(PackageState.Sorted);
                     _output.Container.AddPackage(package);
                     Destroy(walker);
                 });

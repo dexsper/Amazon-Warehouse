@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using MonsterLove.Collections;
 using UnityEngine;
+using Zenject;
 
 public class PoolManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class PoolManager : MonoBehaviour
 	private Dictionary<GameObject, ObjectPool<GameObject>> instanceLookup; 
 	
 	private bool dirty = false;
+
+	[Inject]
+	private DiContainer _container;
 	
 	private void Awake () 
 	{
@@ -65,6 +69,7 @@ public class PoolManager : MonoBehaviour
 	public void ReleaseObject(GameObject clone)
 	{
 		clone.SetActive(false);
+		clone.transform.parent = transform;
 
 		if(instanceLookup.ContainsKey(clone))
 		{
@@ -81,9 +86,10 @@ public class PoolManager : MonoBehaviour
 
 	private GameObject InstantiatePrefab(GameObject prefab)
 	{
-		var go = Instantiate(prefab) as GameObject;
+		var go = _container.InstantiatePrefab(prefab);
 		go.transform.parent = transform;
 		return go;
+		
 	}
 
 	public void PrintStatus()

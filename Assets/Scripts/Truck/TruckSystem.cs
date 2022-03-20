@@ -7,7 +7,8 @@ using Zenject;
 public class TruckSystem : MonoBehaviour
 {
     [Header("Truck Spawning Settings")]
-    private float _delay = 10f;
+    private float _importDelay = 14f;
+    private float _exportDelay = 10f;
 
     private List<TruckDoor> _doors = new List<TruckDoor>();
 
@@ -43,17 +44,25 @@ public class TruckSystem : MonoBehaviour
         _doors.Add(door);
     }
 
-    float _timer = 0;
+    float _importTimer = 0;
+    float _exportTimer = 0;
 
     private void Update()
     {
-        _timer += Time.deltaTime;
+        _importTimer += Time.deltaTime;
+        _exportTimer += Time.deltaTime;
 
-        if (_timer >= _delay)
+        if (_importTimer >= _importDelay)
         {
-            _timer = 0;
+            _importTimer = 0;
 
             FindFreeDoor(TruckType.Importation);
+        }
+
+        if(_exportTimer >= _exportDelay)
+        {
+            _exportTimer = 0;
+            FindFreeDoor(TruckType.Exportation);
         }
 
         for (int i = 0; i < _activeTrucks.Count; i++)
@@ -62,6 +71,14 @@ public class TruckSystem : MonoBehaviour
             {
                 var truck = _activeTrucks[i];
                 truck.SetTargetDoor(null);
+
+                while(truck.Container.HasPackages)
+                {
+                    var package = truck.Container.GetPackage();
+                    package.SetState(PackageState.New);
+
+                    _poolManager.ReleaseObject(package.gameObject);
+                }
 
                 _activeTrucks.Remove(truck);
                 _poolManager.ReleaseObject(truck.gameObject);
@@ -86,8 +103,14 @@ public class TruckSystem : MonoBehaviour
         if (door.HasTruck) return;
 
         var truckPrefab = door.DoorType == TruckType.Importation ? _importTruckPrefab : _exportTruckPrefab;
+
+        Quaternion rotation = Quaternion.LookRotation(door.transform.forward);
+
+        if (door.DoorType == TruckType.Importation)
+            rotation = Quaternion.LookRotation(-door.transform.forward);
+
         var truck = _poolManager.
-            SpawnObject(truckPrefab, door.TruckSpawnPoint.position, Quaternion.LookRotation(-door.transform.forward), null).
+            SpawnObject(truckPrefab, door.TruckSpawnPoint.position, rotation, null).
             GetComponent<TruckBase>();
 
         truck.gameObject.SetActive(true);

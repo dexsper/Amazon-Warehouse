@@ -526,7 +526,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 6
   _stopDistance: 6
-  _type: 0
 --- !u!54 &7685206602355666273
 Rigidbody:
   m_ObjectHideFlags: 0

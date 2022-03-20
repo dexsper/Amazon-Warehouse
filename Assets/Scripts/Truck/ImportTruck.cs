@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class ImportTruck : TruckBase
 {
+    public new TruckType Type
+    {
+        get
+        {
+            return TruckType.Importation;
+        }
+    }
+
     private void Update()
     {
         if (_targetDoor != null && _reachDoor == false)
