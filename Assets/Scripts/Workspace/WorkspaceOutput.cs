@@ -23,7 +23,8 @@ public class WorkspaceOutput : BaseInteraction
 
         if (_workspace.IsWork) return false;
 
-        if (_container.HasPackages == false) return false;
+        if (_container.HasPackages == false || _player.Interaction.Container.Equipped) return false;
+
         if (_player.Interaction.Container.PackagesCount > 0 &&
             _player.Interaction.Container.HasPackage(PackageState.Calculated) == false) return false;
 

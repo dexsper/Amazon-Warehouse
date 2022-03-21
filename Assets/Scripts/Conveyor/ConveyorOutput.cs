@@ -17,7 +17,8 @@ public class ConveyorOutput : BaseInteraction
     {
         if (_player.Interaction.HasInteraction && _player.Interaction.CurrentInteraction != (this as IInteractable)) return false;
 
-        if (_container.HasPackages == false) return false;
+        if (_container.HasPackages == false || _player.Interaction.Container.Equipped) return false;
+
         if (_player.Interaction.Container.PackagesCount > 0 &&
             _player.Interaction.Container.HasPackage(PackageState.Sorted) == false) return false;
 

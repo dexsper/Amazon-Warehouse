@@ -36,7 +36,7 @@ public abstract class TruckBase : MonoBehaviour
         _container = GetComponent<PackageContainer>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         _startPos = transform.position;
         Release = false;

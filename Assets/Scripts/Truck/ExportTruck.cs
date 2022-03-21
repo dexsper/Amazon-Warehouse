@@ -14,13 +14,14 @@ public class ExportTruck : TruckBase
     private bool _moneyGived = false;
 
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         _moneyGived = false;
     }
     private void Update()
     {
-        if (_targetDoor != null && _reachDoor == false)
+        if (_targetDoor != null && _reachDoor == false && _container.Equipped == false)
         {
             float distance = Vector3.Distance(transform.position, _targetDoor.transform.position);
 
@@ -32,8 +33,10 @@ public class ExportTruck : TruckBase
 
             MoveTo(_targetDoor.transform.position);
         }
-        else if (_reachDoor && _container.Equipped && Release == false)
+        else if (_container.Equipped && Release == false)
         {
+            _reachDoor = false;
+
             if(_moneyGived == false)
             {
                 GiveMoney();
