@@ -13,11 +13,11 @@ public class ExportTruck : TruckBase
 
     private bool _moneyGived = false;
 
+
     private void Start()
     {
         _moneyGived = false;
     }
-
     private void Update()
     {
         if (_targetDoor != null && _reachDoor == false)
@@ -52,7 +52,6 @@ public class ExportTruck : TruckBase
             MoveTo(_startPos);
         }
     }
-
     private void GiveMoney()
     {
         _player.Economics.Deposit(_container.PackagesCount * _moneyPerPackage);

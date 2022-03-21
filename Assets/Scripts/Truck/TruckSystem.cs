@@ -110,7 +110,7 @@ public class TruckSystem : MonoBehaviour
             rotation = Quaternion.LookRotation(-door.transform.forward);
 
         var truck = _poolManager.
-            SpawnObject(truckPrefab, door.TruckSpawnPoint.position, rotation, null).
+            SpawnObject(truckPrefab, door.TruckSpawnPoint, rotation, null).
             GetComponent<TruckBase>();
 
         truck.gameObject.SetActive(true);

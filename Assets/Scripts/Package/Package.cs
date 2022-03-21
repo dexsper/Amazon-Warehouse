@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum PackageState
 {
@@ -25,6 +26,8 @@ public class Package : MoveObject
     [Header("Visual Settings")]
     [SerializeField] private List<PackageVisualObject> _visualObjectsStates;
 
+    public UnityEvent<Package> OnStateChanged = new UnityEvent<Package>();
+
     public PackageState State
     {
         get { return _state; }
@@ -34,9 +37,10 @@ public class Package : MoveObject
     {
         _state = state;
 
+        OnStateChanged?.Invoke(this);
+
         UpdateVisual();
     }
-
     private void UpdateVisual()
     {
         for (int i = 0; i < _visualObjectsStates.Count; i++)

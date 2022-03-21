@@ -2,6 +2,7 @@ using BezierSolution;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 
 public class Conveyor : MonoBehaviour
@@ -13,6 +14,7 @@ public class Conveyor : MonoBehaviour
     [Range(0f, 10f)]
     [SerializeField] private int _moveTime = 3;
 
+    public UnityEvent<bool> OnWorkStateChaged = new UnityEvent<bool>();
 
     private ConveyorOutput _output;
     private ConveyorInput _input;
@@ -26,6 +28,7 @@ public class Conveyor : MonoBehaviour
     }
 
     float timer = 0f;
+
     private void Update()
     {
         if (_input.Container.HasPackages && _output.Container.Equipped == false)
@@ -50,7 +53,5 @@ public class Conveyor : MonoBehaviour
             }
         }
     }
-
-
 
 }

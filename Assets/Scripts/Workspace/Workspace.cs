@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 
 
@@ -13,12 +14,13 @@ public class Workspace : MonoBehaviour
     [SerializeField] private WorkspaceInput _input;
     [SerializeField] private WorkspaceOutput _output;
 
-    public InteractionType InteractType => InteractionType.Table;
 
+    public InteractionType InteractType => InteractionType.Table;
     public bool IsWork { get; private set; } = false;
 
-    float workTimer = 0f;
+    public UnityEvent<bool> OnWorkStateChanged = new UnityEvent<bool>();
 
+    float workTimer = 0f;
     float secondsPerPackage;
 
     private void Awake()
@@ -33,14 +35,14 @@ public class Workspace : MonoBehaviour
     {
         if (_input.Container.Equipped && IsWork == false)
         {
-            IsWork = true;
+            SetWork(true);
         }
 
-        if(IsWork)
+        if (IsWork)
         {
             if(_input.Container.PackagesCount == 0)
             {
-                IsWork = false;
+                SetWork(false);
             }
 
             workTimer += Time.deltaTime;
@@ -55,5 +57,11 @@ public class Workspace : MonoBehaviour
                 _output.Container.AddPackage(package);
             }
         }
+    }
+
+    private void SetWork(bool work)
+    {
+        IsWork = work;
+        OnWorkStateChanged?.Invoke(work);
     }
 }

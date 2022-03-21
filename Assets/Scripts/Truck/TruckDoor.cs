@@ -1,38 +1,41 @@
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 
 public class TruckDoor : BaseInteraction
 {
-    private TruckBase _truck;
-
-    [Inject]
-    private TruckSystem _truckSystem;
-
+    [Header("Door Settings")]
     [SerializeField]
     private TruckType _doorType;
 
-    public Transform TruckSpawnPoint;
+    [Header("Truck Settings")]
+    [Range(5, 30f)]
+    [SerializeField] private float _truckSpawnDistance = 15f;
 
-    public TruckType DoorType
-    {
-        get { return _doorType; }
+    [Inject]
+    private TruckSystem _truckSystem;
+    private TruckBase _truck;
+
+
+    public Vector3 TruckSpawnPoint { get; private set; }
+    public TruckType DoorType => _doorType;
+    public bool HasTruck => _truck != null;
+
+    public UnityEvent<TruckBase> OnTruckUpdated;
+    public UnityEvent OnInteract;
+
+    protected virtual void Start()
+    { 
+        _truckSystem.AddDoor(this);
+
+        TruckSpawnPoint = transform.position + -transform.right * _truckSpawnDistance;
     }
-
-    public bool HasTruck
-    {
-        get { return _truck != null; }
-    }
-
     public void SetTruck(TruckBase truck)
     {
         _truck = truck;
-    }
 
-    private void Start()
-    {
-        _truckSystem.AddDoor(this);
+        OnTruckUpdated?.Invoke(_truck);
     }
-
     public new InteractionType InteractType
     {
         get
@@ -40,7 +43,6 @@ public class TruckDoor : BaseInteraction
             return InteractionType.Truck;
         }
     }
-
     public override bool CanInteract()
     {
         if (_player.Interaction.HasInteraction && _player.Interaction.CurrentInteraction != (this as IInteractable)) return false;
@@ -63,7 +65,6 @@ public class TruckDoor : BaseInteraction
 
         return true;
     }
-
     public override void Interact()
     {
         if (!CanInteract()) return;
@@ -82,5 +83,8 @@ public class TruckDoor : BaseInteraction
 
             _truck.Container.AddPackage(package);
         }
+
+        OnInteract?.Invoke();
     }
+
 }

@@ -9,14 +9,14 @@ public class ConveyorInput : BaseInteraction
     private PackageContainer _container;
 
     public InteractionType InteractType => InteractionType.Conveyor;
-
     public PackageContainer Container => _container;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         _container = GetComponent<PackageContainer>();
     }
-
     public override bool CanInteract()
     {
         if (_player.Interaction.HasInteraction && _player.Interaction.CurrentInteraction != (this as IInteractable)) return false;
@@ -29,7 +29,6 @@ public class ConveyorInput : BaseInteraction
 
         return true;
     }
-
     public override void Interact()
     {
         if (!CanInteract()) return;
