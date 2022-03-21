@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071037639812268906}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 44.9, y: 0, z: -5.0960007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -111,9 +111,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7eafd25361d84048803788e57e8a130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visualObject: {fileID: 0}
+  _enableWorldIcon: 1
+  _iconSprite: {fileID: 21300000, guid: 21a83bb0bb465374b897f0c655de9d8e, type: 3}
+  _iconOffset: {x: 0, y: 5, z: 1}
   _doorType: 1
-  _truckSpawnDistance: 20
+  _truckSpawnDistance: 25
+  OnTruckUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1071037639812268905
 BoxCollider:
   m_ObjectHideFlags: 0

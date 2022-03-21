@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Zenject;
 
+
 public class Conveyor : MonoBehaviour
 {
     [Header("Work Settings")]
@@ -14,17 +15,24 @@ public class Conveyor : MonoBehaviour
     [Range(0f, 10f)]
     [SerializeField] private int _moveTime = 3;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip _clip;
+
     public UnityEvent<bool> OnWorkStateChaged = new UnityEvent<bool>();
 
     private ConveyorOutput _output;
     private ConveyorInput _input;
     private BezierSpline _spline;
+    private AudioSource _source;
+
+    public bool IsWork { get; private set; } = false;
 
     private void Awake()
     {
         _output = GetComponentInChildren<ConveyorOutput>();
         _input = GetComponentInChildren<ConveyorInput>();
         _spline = GetComponentInChildren<BezierSpline>();
+        _source = GetComponent<AudioSource>();
     }
 
     float timer = 0f;
@@ -33,6 +41,8 @@ public class Conveyor : MonoBehaviour
     {
         if (_input.Container.HasPackages && _output.Container.Equipped == false)
         {
+            SetWork(true);
+
             timer += Time.deltaTime;
 
             if (timer >= _delayPerPackage)
@@ -51,6 +61,25 @@ public class Conveyor : MonoBehaviour
                     Destroy(walker);
                 });
             }
+        }
+        else
+        {
+            SetWork(false);
+        }
+    }
+
+    private void SetWork(bool work)
+    {
+        IsWork = work;
+
+        if (_source != null && _clip != null)
+        {
+            _source.clip = _clip;
+
+            if (IsWork)
+                _source.Play();
+            else
+                _source.Stop();
         }
     }
 

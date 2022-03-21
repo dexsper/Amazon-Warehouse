@@ -207,6 +207,8 @@ GameObject:
   - component: {fileID: 5057839554995196309}
   - component: {fileID: 5057839554995196304}
   - component: {fileID: 5057839554995196311}
+  - component: {fileID: 4374042113376950803}
+  - component: {fileID: 1215706063988129948}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -240,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b539c81a6c058c7449c8e6d255423e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _showText: 1
   _textOffset: {x: -1, y: 3, z: 0}
   _cells: []
   _packageMoveDuration: 0.8
@@ -277,7 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eebdfff8c1d685439c5b865721759ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _iconSprite: {fileID: 21300000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
+  _enableWorldIcon: 1
+  _iconSprite: {fileID: 21300000, guid: 21a83bb0bb465374b897f0c655de9d8e, type: 3}
   _iconOffset: {x: -1, y: 3, z: 0}
 --- !u!65 &5057839554995196311
 BoxCollider:
@@ -292,6 +296,117 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 2, z: 4}
   m_Center: {x: 0, y: 1, z: -2}
+--- !u!82 &4374042113376950803
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5057839554995196315}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1215706063988129948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5057839554995196315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0753c37491c4b244aaa032eb5934b413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _addedClip: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+  _pitchMin: 0.6
+  _pitchMax: 1.1
 --- !u!1 &5057839555245554289
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b539c81a6c058c7449c8e6d255423e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _showText: 0
   _textOffset: {x: 0, y: 1, z: 0}
   _cells: []
   _packageMoveDuration: 0.8
@@ -420,8 +536,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c44f5a7673c5d4cb710dd9092b8774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _iconSprite: {fileID: 0}
-  _iconOffset: {x: 0, y: 0, z: 0}
+  _enableWorldIcon: 1
+  _iconSprite: {fileID: 21300000, guid: f4e63e9d3410169488f07fef636b1c10, type: 3}
+  _iconOffset: {x: -1, y: 3, z: 0}
 --- !u!1 &5057839556210253487
 GameObject:
   m_ObjectHideFlags: 0

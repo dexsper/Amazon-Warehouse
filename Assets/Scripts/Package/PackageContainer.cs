@@ -8,6 +8,7 @@ using Zenject;
 public class PackageContainer : MonoBehaviour
 {
     [Header("Visual")]
+    [SerializeField] private bool _showText = false;
     [SerializeField] private Vector3 _textOffset = Vector3.up;
 
     [Header("Container Settings")]
@@ -62,7 +63,7 @@ public class PackageContainer : MonoBehaviour
 
         OnPackageAdded?.Invoke(package);
 
-        if(_packages.Count == _cells.Count)
+        if(_packages.Count == _cells.Count && _showText)
         {
             StartCoroutine(_worldCanvas.ShowText(transform, _textOffset, "MAX", 1f));
         }

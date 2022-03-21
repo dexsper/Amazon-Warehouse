@@ -26,11 +26,14 @@ public class WorldCanvas : MonoBehaviour
         obj.transform.SetParent(transform, false);
         obj.SetData(target, _camera, offset);
         obj.transform.position = new Vector3(-1000, -1000);
-        obj.gameObject.AddComponent<Image>().sprite = sprite;
+
+        var image = obj.gameObject.AddComponent<Image>();
+        image.color = new Color(1, 1, 1, .7f);
+        image.sprite = sprite;
 
         return obj;
     }
-    
+
     public IEnumerator ShowText(Transform target, Vector3 offset, string text, float delay)
     {
         var textObj = Instantiate(_textPrefab);
@@ -39,7 +42,7 @@ public class WorldCanvas : MonoBehaviour
         textObj.text = text;
 
         textObj.gameObject.AddComponent<WorldUI>().SetData(target, _camera, offset);
-        
+
         yield return new WaitForSeconds(delay);
 
         Destroy(textObj.gameObject);

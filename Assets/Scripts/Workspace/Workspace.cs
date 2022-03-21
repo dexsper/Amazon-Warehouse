@@ -33,7 +33,7 @@ public class Workspace : MonoBehaviour
 
     private void Update()
     {
-        if (_input.Container.Equipped && IsWork == false)
+        if (_input.Container.Equipped && IsWork == false && _output.Container.Equipped == false)
         {
             SetWork(true);
         }

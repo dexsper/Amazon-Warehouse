@@ -7,6 +7,7 @@ public abstract class BaseInteraction : MonoBehaviour, IInteractable
 {
 
     [Header("Visual")]
+    [SerializeField] private bool _enableWorldIcon = false;
     [SerializeField] protected Sprite _iconSprite;
     [SerializeField] private Vector3Int _iconOffset;
 
@@ -28,7 +29,8 @@ public abstract class BaseInteraction : MonoBehaviour, IInteractable
 
     protected virtual void Awake()
     {
-        _visualObject = _worldCanvas.SpawnIcon(transform, _iconOffset, _iconSprite);
+        if(_iconSprite != null && _enableWorldIcon)
+            _visualObject = _worldCanvas.SpawnIcon(transform, _iconOffset, _iconSprite);
     }
 
     protected virtual void Update()

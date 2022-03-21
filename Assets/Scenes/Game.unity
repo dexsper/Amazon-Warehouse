@@ -7794,18 +7794,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Export Door.1
       objectReference: {fileID: 0}
-    - target: {fileID: 1071037639812268906, guid: 2b8135e8692cdf74bbf54cc916f7d7e9, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170599963045985955, guid: 2b8135e8692cdf74bbf54cc916f7d7e9, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 7512610148844135323, guid: 2b8135e8692cdf74bbf54cc916f7d7e9, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b8135e8692cdf74bbf54cc916f7d7e9, type: 3}
 --- !u!4 &1068472769 stripped
@@ -9234,25 +9222,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2065369578}
     m_Modifications:
-    - target: {fileID: 6183017211659541022, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 6183017212300622232, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 6183017212406282453, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
-      propertyPath: _visualObject
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6183017212406282455, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
       propertyPath: m_Name
       value: Import Door.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6183017212406282455, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7850916166981554777, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
       propertyPath: m_RootOrder
@@ -14776,18 +14748,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Export Door
       objectReference: {fileID: 0}
-    - target: {fileID: 1071037639812268906, guid: 2b8135e8692cdf74bbf54cc916f7d7e9, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170599963045985955, guid: 2b8135e8692cdf74bbf54cc916f7d7e9, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 7512610148844135323, guid: 2b8135e8692cdf74bbf54cc916f7d7e9, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b8135e8692cdf74bbf54cc916f7d7e9, type: 3}
 --- !u!1 &2151734497667341830
@@ -15075,9 +15035,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 586687347, guid: ec65064a6d58ebf43a7161f8ff64ecd0, type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4306464809715209073, guid: ec65064a6d58ebf43a7161f8ff64ecd0, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581152590392362875, guid: ec65064a6d58ebf43a7161f8ff64ecd0, type: 3}
+      propertyPath: _packageMoveDuration
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6768637530452335961, guid: ec65064a6d58ebf43a7161f8ff64ecd0, type: 3}
       propertyPath: m_RootOrder
@@ -15289,25 +15257,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2065369578}
     m_Modifications:
-    - target: {fileID: 6183017211659541022, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 6183017212300622232, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 6183017212406282453, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
-      propertyPath: _visualObject
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6183017212406282455, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
       propertyPath: m_Name
       value: Import Door
-      objectReference: {fileID: 0}
-    - target: {fileID: 6183017212406282455, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7850916166981554777, guid: a4f9d9dd00ae0714f8e49bb0432cff48, type: 3}
       propertyPath: m_RootOrder
