@@ -24,8 +24,10 @@ public class TruckDoor : BaseInteraction
     public UnityEvent<TruckBase> OnTruckUpdated;
     public UnityEvent OnInteract;
 
-    protected virtual void Start()
-    { 
+    protected override void Start()
+    {
+        base.Start();
+
         _truckSystem.AddDoor(this);
 
         TruckSpawnPoint = transform.position + -transform.right * _truckSpawnDistance;

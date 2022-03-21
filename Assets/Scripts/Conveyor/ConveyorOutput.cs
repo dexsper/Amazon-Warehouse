@@ -9,10 +9,8 @@ public class ConveyorOutput : BaseInteraction
     public InteractionType InteractType => InteractionType.Conveyor;
     public PackageContainer Container => _container;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
-
         _container = GetComponent<PackageContainer>();
     }
     public override bool CanInteract()
@@ -20,7 +18,7 @@ public class ConveyorOutput : BaseInteraction
         if (_player.Interaction.HasInteraction && _player.Interaction.CurrentInteraction != (this as IInteractable)) return false;
 
         if (_container.HasPackages == false) return false;
-        if (_player.Interaction.Container.PackagesCount > 0 && 
+        if (_player.Interaction.Container.PackagesCount > 0 &&
             _player.Interaction.Container.HasPackage(PackageState.Sorted) == false) return false;
 
 

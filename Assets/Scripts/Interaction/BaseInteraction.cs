@@ -27,7 +27,7 @@ public abstract class BaseInteraction : MonoBehaviour, IInteractable
     private float timer = 0f;
     private WorldUI _visualObject;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         if(_iconSprite != null && _enableWorldIcon)
             _visualObject = _worldCanvas.SpawnIcon(transform, _iconOffset, _iconSprite);

@@ -6,6 +6,7 @@ public class WorldCanvasInstaller : MonoInstaller
     [SerializeField]
     private WorldCanvas _canvasPrefab;
 
+
     public override void InstallBindings()
     {
         Container.Bind<WorldCanvas>().

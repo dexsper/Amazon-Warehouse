@@ -11,10 +11,8 @@ public class WorkspaceInput : BaseInteraction
 
     public PackageContainer Container => _container;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
-
         _container = GetComponent<PackageContainer>();
     }
 
